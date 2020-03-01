@@ -25,11 +25,11 @@
 
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minus-button-phone" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="numberOfPhone" type="text" class="form-control text-center" value="0">
+                           <button id="plus-button-phone" class="btn btn-default"><i class="fas fa-plus"></i></button>
                         </div>
-                        <h5>$1219</h5>
+                        <h5>$ <span id="phonePrice">1219</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -43,12 +43,12 @@
                      </div>
                      <div class="col-md-5 center-item">
                         <div class="input-group number-spinner">
-                           <button class="btn btn-default"><i class="fas fa-minus"></i></button>
-                           <input type="text" class="form-control text-center" value="1">
-                           <button class="btn btn-default"><i class="fas fa-plus"></i></button>
+                           <button id="minus-button-catching" class="btn btn-default"><i class="fas fa-minus"></i></button>
+                           <input id="numberOfCatching" type="text" class="form-control text-center" value="0">
+                           <button id="plus-button-catching" class="btn btn-default"><i class="fas fa-plus"></i></button>
 
                         </div>
-                        <h5>$59</h5>
+                        <h5>$ <span id="catchingPrice">59</span></h5>
                         <img src="images/remove.png" alt="" class="remove-item">
                      </div>
                   </div>
@@ -64,9 +64,9 @@
                      </div>
 
                      <div class="col-md-4 status">
-                        <h5>$1,278</h5>
-                        <h5>$0</h5>
-                        <h5>$1,278</h5>
+                        <h5>$ <span id="totalPrice">1278</span></h5>
+                        <h5>$ <span id = "tax">0</span></h5>
+                        <h5>$ <span id = "finalPrice">1278</span></h5>
                      </div>
                   </div>
                </div>
@@ -80,7 +80,94 @@
 </body>
 
 <script>
+//Phone and catching price 
+   var totalPricePhone=0;
+   var totalPriceCatching=0;
+
+
+   const phonePrice = document.getElementById("phonePrice").innerText;
+   const phonePriceNumber = parseFloat(phonePrice);
+   const catchingPrice = document.getElementById("catchingPrice").innerText;
+   const catchingPriceNumber = parseFloat(catchingPrice);
+
+
+
+
+//plus button
+
+
+   const plusButtonPhone = document.getElementById("plus-button-phone");
+   plusButtonPhone.addEventListener("click", function(){
+      showAmountPlusButton("numberOfPhone","phonePrice",phonePriceNumber,1);
+
+
+   })
+   const plusButtonCatching = document.getElementById("plus-button-catching");
+      plusButtonCatching.addEventListener("click", function(){
+         showAmountPlusButton("numberOfCatching","catchingPrice",catchingPriceNumber,1);
+
+      })
+
+
+//minus button
+
+
+
+const minusButtonPhone = document.getElementById("minus-button-phone");
+minusButtonPhone.addEventListener("click", function(){
+   showAmountPlusButton("numberOfPhone","phonePrice",phonePriceNumber,-1);
+})
+
+const minusButtonCatching = document.getElementById("minus-button-catching");
+minusButtonCatching.addEventListener("click", function(){
+   showAmountPlusButton("numberOfCatching","catchingPrice",catchingPriceNumber,-1);
+})
+
+
+
+
+function showAmountPlusButton(input_id,price_id,priceNumber,one){
    
+   const Input = document.getElementById(input_id).value;
+   const parseValue = parseFloat(Input);
+   const numberOfItem = parseValue + one;
+   document.getElementById(input_id).value = numberOfItem;
+   
+   const currentTotalPrice = priceNumber*numberOfItem;
+   document.getElementById(price_id).innerText = currentTotalPrice;
+   if(price_id==="catchingPrice"){
+      totalPriceCatching = currentTotalPrice;
+   }
+   else if(price_id==="phonePrice"){
+      totalPricePhone = currentTotalPrice;
+   }
+   const totalPrice = totalPricePhone + totalPriceCatching;
+   document.getElementById("totalPrice").innerText = totalPrice;
+
+
+   const tax = (totalPrice*10)/100;
+   document.getElementById("tax").innerText = tax;
+   const finalPrice = totalPrice +tax;
+   document.getElementById("finalPrice").innerText = finalPrice;
+}
+
+
+// function showAmountMinusButton(input_id,price_id,priceNumber,totalPrice){
+   
+//    const minusInput = document.getElementById(input_id).value;
+//    const parseValue = parseFloat(minusInput);
+//    const numberOfItem = parseValue - 1;
+//    document.getElementById(input_id).value = numberOfItem;
+   
+//    const currentTotalPrice = priceNumber*numberOfItem;
+//    document.getElementById(price_id).innerText = currentTotalPrice;
+//    totalPrice = totalPrice + currentTotalPrice;
+//    document.getElementById("totalPrice").innerText = totalPrice;
+
+// }
+
+
 </script>
+
 
 </html>
